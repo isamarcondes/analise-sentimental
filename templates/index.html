@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Análise de Sentimentos</title>
+    <style>
+        .positive { color: green; }
+        .negative { color: red; }
+        .neutral { color: gray }
+        .error { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Análise de Sentimentos</h1>
+
+        <form method="POST">
+            {% if not sentimento %}
+            <div class="button-container">
+                <button type="submit" name="action" value="aleatorizar">Aleatorizar Texto</button>
+                <button type="submit" name="action" value="escrever">Escrever Texto</button>
+            </div>
+            {% endif %}
+
+            {% if display_textarea and not sentimento %}
+                <div class="textarea-container">
+                    <textarea name="text" placeholder="Digite seu texto aqui">{{ texto_original }}</textarea>
+                </div>
+            {% endif %}
+
+            {% if display_textarea and not sentimento %}
+                <button type="submit">Analisar</button>
+            {% endif %}
+        </form>
+
+        {% if erro %}
+        <p class="error">Por favor, insira um texto para análise.</p>
+        {% endif %}
+
+        {% if sentimento %}
+            <h2 class="sentimento {{ cor }}">{{ sentimento }}</h2>
+        {% endif %}
+
+        {% if sentimento and texto_original %}
+            <h2>Texto Original:</h2>
+            <div class="textarea-container">
+                <textarea readonly>{{ texto_original }}</textarea>
+            </div>
+        {% endif %}
+
+        {% if detalhes %}
+        <div class="analysis-container">
+            <div class="analysis-box">
+                <h3>Normalização:</h3>
+                <p>{{ detalhes['normalizacao'] }}</p>
+            </div>
+            <div class="analysis-box">
+                <h3>Tokenização:</h3>
+                <p>{{ detalhes['tokens'] }}</p>
+            </div>
+            <div class="analysis-box">
+                <h3>Sem Stopwords:</h3>
+                <p>{{ detalhes['sem_stopwords'] }}</p>
+            </div>
+            <div class="analysis-box">
+                <h3>Stemming:</h3>
+                <p>{{ detalhes['stemming'] }}</p>
+            </div>
+            <div class="analysis-box">
+                <h3>Lematização:</h3>
+                <p>{{ detalhes['lematizacao'] }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if sentimento %}
+        <div class="button-container">
+            <form method="GET">
+                <button type="submit" name="action" value="voltar">Voltar</button>
+            </form>
+        </div>
+        {% endif %}
+
+    </div>
+</body>
+</html>
