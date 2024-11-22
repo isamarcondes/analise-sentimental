@@ -6,13 +6,10 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import RSLPStemmer
 import spacy
 from googletrans import Translator
-import pandas as pd
 from flask import Flask, request, jsonify, render_template
-import random
-import json
 
 nltk.download('punkt_tab')
-nltk.download('stopwords')
+nltk.download('stopwords') 
 nltk.download('vader_lexicon')
 
 nlp = spacy.load('pt_core_news_sm')
