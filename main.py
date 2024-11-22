@@ -6,7 +6,7 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import RSLPStemmer
 import spacy
 from googletrans import Translator
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, render_template
 
 nltk.download('punkt_tab')
 nltk.download('stopwords') 
